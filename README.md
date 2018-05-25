@@ -10,7 +10,7 @@ This technique has two versions: Static Sign Bits version and Dynamic Sign Bits 
 To verify the effectiveness and efficiency of our technique,we applied our SAC technique to three typical sketches: CM, CU and C. Extensive experimental results show that the SAC technique reduces the Average Relative Error and Average Absolute Error of sketches by up to five to ten times, using the same amount of memory.
 
 ### About the source codes,  dataset and parameters setting
-The source code contains the C++ implementation of the CM, CU, C  sketch and our corresponding SAC version, including Dynamic Sign Bits version and Static Sign Bits version.We complete these codes on Windows 10  1803 and compile successfully using visual studio 2017.
+The source code contains the C++ implementation of the CM, CU, C  sketch and our corresponding SAC version, including Dynamic Sign Bits version and Static Sign Bits version.We complete these codes on Windows 10 version 1803 and compile successfully using visual studio 2017.
 
 
 
