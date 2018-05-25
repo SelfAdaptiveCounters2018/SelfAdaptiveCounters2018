@@ -1,5 +1,4 @@
-#ifndef BOBHASH_H
-#define BOBHASH_H
+#pragma once 
 #include <stdio.h>
 using namespace std;
 
@@ -229,4 +228,4 @@ BOBHash::~BOBHash()
 {
 
 }
-#endif // BOBHASH_H
+ // BOBHASH_H
