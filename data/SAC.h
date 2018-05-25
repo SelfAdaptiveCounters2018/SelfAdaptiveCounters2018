@@ -1,5 +1,5 @@
-#ifndef ADDER_H
-#define ADDER_H
+#ifndef SAC_H
+#define SAC_H
 
 #include <math.h>
 #include <stdio.h>
@@ -630,5 +630,5 @@ double test(int x,int times,double *gamma){
     return sqrt(var)/x;
 }
 
-#endif // ADDER_H
+#endif // SAC_H
 
