@@ -35,38 +35,38 @@ void CAIDA_experiment(int number, double &ret_error, int n, int m, long double &
 	if (sketch == 0) {
 		
 		for (int i = 0; i < 12; ++i) {
-			s[i] = new CMSketch(n * 1024 / 32 / m, m);
+			s[i] = new CMSketch(n * 1024 / 4 / m, m);
 		}
 		cout << "CMSketch with " << n << "KB hash memory generated!" << endl;
 		
 	}
 	if (sketch == 1) {
 		for (int i = 0; i < 12; ++i) {
-			s[i] = new CUSketch(n * 1024 / 32 / m, m);
+			s[i] = new CUSketch(n * 1024 / 4 / m, m);
 		}
 		cout << "CUSketch with " << n << "KB hash memory generated!" << endl;
 	}
 	if (sketch == 2) {
 		for (int i = 0; i < 12; ++i) {
-			s[i] = new CSketch(n * 1024 / 32 / m, m);
+			s[i] = new CSketch(n * 1024 / 4 / m, m);
 		}
 		cout << "CSketch with " << n << "KB hash memory generated!" << endl;
 	}
 	if (sketch == 3) {
 		for (int i = 0; i < 12; ++i) {
-			s[i] = new CMSketch(n * 1024 / 16 / m, m);
+			s[i] = new CMSketch(n * 1024 / 2 / m, m);
 		}
 		cout << "SAC CMSketch with " << n << "KB hash memory generated!" << endl;
 	}
 	if (sketch == 4) {
 		for (int i = 0; i < 12; ++i) {
-			s[i] = new CUSketch(n * 1024 / 16 / m, m);
+			s[i] = new CUSketch(n * 1024 / 2 / m, m);
 		}
 		cout << "SAC CUSketch with " << n << "KB hash memory generated!" << endl;
 	}
 	if (sketch  == 5) {
 		for (int i = 0; i < 12; ++i) {
-			s[i] = new CSketch(n * 1024 / 16 / m, m);
+			s[i] = new CSketch(n * 1024 / 2 / m, m);
 		}
 		cout << "SAC CSketch with " << n << "KB hash memory generated!" << endl;
 	}
