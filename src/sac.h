@@ -10,13 +10,13 @@ const int COUNTER_SIZE= 16; //set the size of counter according to the chosen ty
 const int MAX_CNT=(1 << (COUNTER_SIZE - 1)) - 1;
 const int MIN_CNT=-(1 << (COUNTER_SIZE - 1));
 
-using type = u_int8_t;      //different types of counters
-using sign = __int8_t;
-using long_sign = __int16_t;
+using type = uint8_t;      //different types of counters
+using sign = int8_t;
+using long_sign = int16_t;
 
 const type powers[10]={1,2,4,8,16,32,64,128};
 
-const u_int16_t long_powers[20]={1,2,4,8,16,32,64,128,
+const uint16_t long_powers[20]={1,2,4,8,16,32,64,128,
                       256,512,1024,2048,4096,
                       8192,16384,32768}; //list out the power of 2 for later use
 
