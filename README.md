@@ -12,7 +12,7 @@ To verify the effectiveness and efficiency of our technique,we applied our SAC t
 ### About the source codes,  dataset and parameters setting
 The source code contains the C++ implementation of the CM, CU, C  sketch and our corresponding SAC version, including Dynamic Sign Bits version and Static Sign Bits version.We complete these codes on Windows 10 version 1803 and compile successfully using visual studio 2017.
 
-
+The folder named data contains some datasets we used in our experiments. These datasets include: CAIDA.dat, webpage.txt and others  related to our synthetic experiments. The parameters setting is the same as mentioned in our papers.
 
 
 ### Requirements
