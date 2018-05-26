@@ -7,6 +7,10 @@
 #include "bobhash.h"
 #include "sac.h"
 #include <iostream>
+
+// including the operations of C: Insert, Delete and Query; including the operations of dynamic version of C: dynamic_sac_insert, dynamic_sac_query; 
+// including the operations of static version of C: static_sac_insert, static_sac_query. check function is used to debug and output str's corresponding
+// hash table content.
 class CSketch:public class_sketches
 {	
 public:

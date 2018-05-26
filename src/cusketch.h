@@ -9,6 +9,9 @@
 
 using namespace std;
 
+// including the operations of CU: Insert, Delete and Query; including the operations of dynamic version of CU: dynamic_sac_insert, dynamic_sac_query; 
+// including the operations of static version of CU: static_sac_insert, static_sac_query. check function is used to debug and output str's corresponding
+// hash table content.
 class CUSketch:public class_sketches
 {
 private:
