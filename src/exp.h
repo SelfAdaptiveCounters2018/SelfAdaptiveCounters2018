@@ -31,7 +31,7 @@ int counter[810];
 
 void CAIDA_experiment(int number, double &ret_error, double n, int m, long double &sigma, int sketch, double &ret_aae, long double &aae_sig) { 
 	//n is the memory size(in KB) and m is the number of arrays used in the sketch
-	cout << sketch << endl;
+	cout << "your sketch number is: " << sketch << " (0~5 for 'CM', 'CU', 'C', 'SACCM', 'SACCU' or 'SACC' sketches)" << endl;
 	class_sketches* s[20];
 	if (sketch == 0) {
 		
@@ -179,7 +179,7 @@ void CAIDA_experiment(int number, double &ret_error, double n, int m, long doubl
 
 void webpage_experiment(int number, double &ret_error, double n, int m, long double &sigma, int sketch, double &ret_aae, long double &aae_sig) { 
 	//n is the memory size(in KB) and m is the number of arrays used in the sketch
-	cout << sketch << endl;
+	cout << "your sketch number is: " << sketch << " (0~5 for 'CM', 'CU', 'C', 'SACCM', 'SACCU' or 'SACC' sketches)" << endl;
 	class_sketches* s[20];
 	if (sketch == 0) {
 
@@ -304,7 +304,7 @@ void webpage_experiment(int number, double &ret_error, double n, int m, long dou
 
 void synthetic_experiment(int number, double &ret_error,int a_zipf, double n, int m, long double &sigma, int sketch, double &ret_aae, long double &aae_sig) {
 	//a is the skewness parameter of Zipf distribution, n is the memory size(in KB) and m is the number of arrays used in the sketch
-	cout << sketch << endl;
+	cout << "your sketch number is: "<<sketch << " (0~5 for 'CM', 'CU', 'C', 'SACCM', 'SACCU' or 'SACC' sketches)" << endl;
 	class_sketches* s[20];
 	if (sketch == 0) {
 

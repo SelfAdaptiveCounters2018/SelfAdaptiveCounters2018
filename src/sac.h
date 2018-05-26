@@ -1,5 +1,4 @@
-#ifndef ADDER_H
-#define ADDER_H
+#pragma once
 
 #include <math.h>
 #include <stdio.h>
@@ -11,13 +10,13 @@ const int COUNTER_SIZE= 16; //set the size of counter according to the chosen ty
 const int MAX_CNT=(1 << (COUNTER_SIZE - 1)) - 1;
 const int MIN_CNT=-(1 << (COUNTER_SIZE - 1));
 
-using type = u_int8_t;      //different types of counters
-using sign = __int8_t;
-using long_sign = __int16_t;
+using type = uint8_t;      //different types of counters
+using sign = int8_t;
+using long_sign = int16_t;
 
 const type powers[10]={1,2,4,8,16,32,64,128};
 
-const u_int16_t long_powers[20]={1,2,4,8,16,32,64,128,
+const uint16_t long_powers[20]={1,2,4,8,16,32,64,128,
                       256,512,1024,2048,4096,
                       8192,16384,32768}; //list out the power of 2 for later use
 
@@ -400,9 +399,9 @@ void adding(long_sign &x,int c,double *gamma){
         return;
     }
     unsigned short pos=0;
-    __uint16_t delta=long_second_high_bit;
+    uint16_t delta=long_second_high_bit;
     if(x<0){
-        __uint16_t y = ~x+1;
+        uint16_t y = ~x+1;
         while((y&delta)&&delta>=1){
             ++pos;
             delta=delta>>1;
@@ -464,9 +463,9 @@ void subtracting(long_sign &x, int c,double *gamma){
         return;
     }
     unsigned short pos=0;
-    __uint16_t delta=long_second_high_bit;
+    uint16_t delta=long_second_high_bit;
     if(x<=0){//It's important to deal with 0 here in this case
-        __uint16_t y = ~x+1;
+        uint16_t y = ~x+1;
         while((y&delta)&&delta>=1){
             ++pos;
             delta=delta>>1;
@@ -630,5 +629,5 @@ double test(int x,int times,double *gamma){
     return sqrt(var)/x;
 }
 
-#endif // ADDER_H
+ // ADDER_H
 
