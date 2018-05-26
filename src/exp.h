@@ -28,8 +28,8 @@ CUSketch *cusketch = new CUSketch(1.5*w, 12);
 double re[810];
 int counter[810];
 
-
-void CAIDA_experiment(int number, double &ret_error, double n, int m, long double &sigma, int sketch, double &ret_aae, long double &aae_sig) { 
+// three experiment functions: CAIDA_experiment, webpage_experiment and synthetic_experiment.
+void CAIDA_experiment(int number, double &ret_error,int version, double n, int m, long double &sigma, int sketch, double &ret_aae, long double &aae_sig) { 
 	//n is the memory size(in KB) and m is the number of arrays used in the sketch
 	cout << "your sketch number is: " << sketch << " (0~5 for 'CM', 'CU', 'C', 'SACCM', 'SACCU' or 'SACC' sketches)" << endl;
 	class_sketches* s[20];
@@ -129,9 +129,11 @@ void CAIDA_experiment(int number, double &ret_error, double n, int m, long doubl
 			
 			if (sketch <= 2)
 				s[m]->Insert(it1->first.c_str(), it1->second);
-			else
+			else if (!version) {
 				s[m]->dynamic_sac_insert(it1->first.c_str(), it1->second, gamma_2);
-
+			}
+			else 
+				s[m]->static_sac_insert(it1->first.c_str(), 3, gamma_2);
 		}
 
 		for (int i = 0; i<810; ++i) {
@@ -149,10 +151,14 @@ void CAIDA_experiment(int number, double &ret_error, double n, int m, long doubl
 				error[m] += abs(s[m]->Query(it2->first.c_str()) - it2->second) / (double)it2->second;
 				error_aae[m] += abs((double)s[m]->Query(it2->first.c_str()) - it2->second);
 			}
-			else
+			else if(!version)
 			{
 				error[m] += abs(s[m]->dynamic_sac_query(it2->first.c_str(), gamma_2) - it2->second) / (double)it2->second;
 				error_aae[m] += abs((double)s[m]->dynamic_sac_query(it2->first.c_str(), gamma_2) - it2->second);
+			}
+			else {
+				error[m] += abs(s[m]->static_sac_query(it2->first.c_str(),3, gamma_2) - it2->second) / (double)it2->second;
+				error_aae[m] += abs((double)s[m]->static_sac_query(it2->first.c_str(),3, gamma_2) - it2->second);
 			}
 		}
 		error[m] /= flow_num;
@@ -177,7 +183,7 @@ void CAIDA_experiment(int number, double &ret_error, double n, int m, long doubl
 	aae_sig = sqrt(aae_sig / 11);
 }
 
-void webpage_experiment(int number, double &ret_error, double n, int m, long double &sigma, int sketch, double &ret_aae, long double &aae_sig) { 
+void webpage_experiment(int number, double &ret_error,int version, double n, int m, long double &sigma, int sketch, double &ret_aae, long double &aae_sig) { 
 	//n is the memory size(in KB) and m is the number of arrays used in the sketch
 	cout << "your sketch number is: " << sketch << " (0~5 for 'CM', 'CU', 'C', 'SACCM', 'SACCU' or 'SACC' sketches)" << endl;
 	class_sketches* s[20];
@@ -258,9 +264,10 @@ void webpage_experiment(int number, double &ret_error, double n, int m, long dou
 		for (it1 = unmp[m].begin(); it1 != unmp[m].end(); ++it1) {
 			if (sketch <= 2)
 				s[m]->Insert(it1->first.c_str(), it1->second);
-			else
+			else if(!version)
 				s[m]->dynamic_sac_insert(it1->first.c_str(), it1->second, gamma_2);
-
+			else
+				s[m]->dynamic_sac_insert(it1->first.c_str(), 3, gamma_2);
 		}
 
 		int flow_num = unmp[m].size();
@@ -273,11 +280,15 @@ void webpage_experiment(int number, double &ret_error, double n, int m, long dou
 				error[m] += abs(s[m]->Query(it2->first.c_str()) - it2->second) / (double)it2->second;
 				error_aae[m] += abs((double)s[m]->Query(it2->first.c_str()) - it2->second);
 			}
-			else
+			else if(!version)
 			{
 				error[m] += abs(s[m]->dynamic_sac_query(it2->first.c_str(), gamma_2) - it2->second) / (double)it2->second;
 				error_aae[m] += abs((double)s[m]->dynamic_sac_query(it2->first.c_str(), gamma_2) - it2->second);
 			}
+	       else {
+		       error[m] += abs(s[m]->static_sac_query(it2->first.c_str(), 3, gamma_2) - it2->second) / (double)it2->second;
+		       error_aae[m] += abs((double)s[m]->static_sac_query(it2->first.c_str(), 3, gamma_2) - it2->second);
+	       }
 		}
 		error[m] /= flow_num;
 		error_aae[m] /= flow_num;
@@ -302,7 +313,7 @@ void webpage_experiment(int number, double &ret_error, double n, int m, long dou
 }
 
 
-void synthetic_experiment(int number, double &ret_error,int a_zipf, double n, int m, long double &sigma, int sketch, double &ret_aae, long double &aae_sig) {
+void synthetic_experiment(int number, double &ret_error,int version,int a_zipf, double n, int m, long double &sigma, int sketch, double &ret_aae, long double &aae_sig) {
 	//a is the skewness parameter of Zipf distribution, n is the memory size(in KB) and m is the number of arrays used in the sketch
 	cout << "your sketch number is: "<<sketch << " (0~5 for 'CM', 'CU', 'C', 'SACCM', 'SACCU' or 'SACC' sketches)" << endl;
 	class_sketches* s[20];
@@ -398,11 +409,15 @@ void synthetic_experiment(int number, double &ret_error,int a_zipf, double n, in
 				error[m] += abs(s[m]->Query(it2->first.c_str()) - it2->second) / (double)it2->second;
 				error_aae[m] += abs((double)s[m]->Query(it2->first.c_str()) - it2->second);
 			}
-			else
+			else if(!version)
 			{
 				error[m] += abs(s[m]->dynamic_sac_query(it2->first.c_str(), gamma_2) - it2->second) / (double)it2->second;
 				error_aae[m] += abs((double)s[m]->dynamic_sac_query(it2->first.c_str(), gamma_2) - it2->second);
 			}
+	        else {
+		        error[m] += abs(s[m]->static_sac_query(it2->first.c_str(), 3, gamma_2) - it2->second) / (double)it2->second;
+		        error_aae[m] += abs((double)s[m]->static_sac_query(it2->first.c_str(), 3, gamma_2) - it2->second);
+	         }
 		}
 		error[m] /= flow_num;
 		error_aae[m] /= flow_num;

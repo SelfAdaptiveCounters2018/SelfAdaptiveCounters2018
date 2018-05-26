@@ -25,9 +25,15 @@ int main()
 	string dataset;
 	cin >> dataset;
 	if (dataset == "CAIDA") {
-		int sketch,arr,start,ends;
+		int sketch,arr,version=-1;
+		double start, ends;
 		cout << "type 0~5 for 'CM','CU','C','SACCM','SACCU' or 'SACC' sketches" << endl;
 		cin >> sketch;
+		if (sketch >= 3)
+		{
+			cout << "type 0~1 for 'Dynamic Sign Bits' version or 'Static Sign Bits' version" << endl;
+			cin >> version;
+		}
 		cout << "type in number of arrays in sketch(type 0 for default setting" << endl;
 		cin >> arr;
 		if (arr == 0)
@@ -46,14 +52,20 @@ int main()
 		file.open(file_name);
 		file << "memory(in KB)  ARE  sigma    AAE    sigma" << endl;
 		for (int i = start; i < ends; i += (ends - start) / 12) {
-			CAIDA_experiment(28000099.0, err1, i, arr, sig1, sketch,err2,sig2);
+			CAIDA_experiment(28000099.0, err1,version, i, arr, sig1, sketch,err2,sig2);
 			file << i << "  " << err1 << "  " << sig1<<"  "<<err2<<"  "<<sig2 << endl;
 		}
 	}
 	else if (dataset == "webpage") {
-		int sketch, arr, start, ends;
+		int sketch, arr,version=-1;
+		double start, ends;
 		cout << "type 0~5 for 'CM','CU','C','SACCM','SACCU' or 'SACC' sketches" << endl;
 		cin >> sketch;
+		if (sketch >= 3)
+		{
+			cout << "type 0~1 for 'Dynamic Sign Bits' version or 'Static Sign Bits' version" << endl;
+			cin >> version;
+		}
 		cout << "type in number of arrays in sketch(type 0 for default setting" << endl;
 		cin >> arr;
 		if (arr == 0)
@@ -72,15 +84,20 @@ int main()
 		file.open(file_name);
 		file << "memory(in KB)  ARE  sigma    AAE    sigma" << endl;
 		for (int i = start; i < ends; i += (ends - start) / 10) {
-			webpage_experiment(100000, err1, i, arr, sig1, sketch, err2, sig2);
+			webpage_experiment(100000, err1,version, i, arr, sig1, sketch, err2, sig2);
 			file << i << "  " << err1 << "  " << sig1 << "  " << err2 << "  " << sig2 << endl;
 		}
 	}
 	else if (dataset=="synthetic") {
-		int sketch, arr;
+		int sketch, arr,version=-1;
 		double start, ends;
 		cout << "type 0~5 for 'CM','CU','C','SACCM','SACCU' or 'SACC' sketches" << endl;
 		cin >> sketch;
+		if (sketch >= 3)
+		{
+			cout << "type 0~1 for 'Dynamic Sign Bits' version or 'Static Sign Bits' version" << endl;
+			cin >> version;
+		}
 		cout << "type in number of arrays in sketch(type 0 for default setting" << endl;
 		cin >> arr;
 		if (arr == 0)
@@ -101,7 +118,7 @@ int main()
 			file.open(file_name);
 			file << "memory(in KB)  ARE  sigma    AAE    sigma" << endl;
 			for (double j = start; j < ends; j += (ends - start) / 10) {
-				synthetic_experiment(100000.0, err1,i, j, arr, sig1, sketch, err2, sig2);
+				synthetic_experiment(100000.0, err1,version,i, j, arr, sig1, sketch, err2, sig2);
 				file << j << "  " << err1 << "  " << sig1 << "  " << err2 << "  " << sig2 << endl;
 			}
 		}
