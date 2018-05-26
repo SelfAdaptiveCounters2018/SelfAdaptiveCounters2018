@@ -1,4 +1,5 @@
-#pragma once
+#ifndef ADDER_H
+#define ADDER_H
 
 #include <math.h>
 #include <stdio.h>
@@ -6,42 +7,42 @@
 #include <sys/timeb.h>
 #include <iostream>
 using namespace std;
-const int COUNTER_SIZE= 16;
+const int COUNTER_SIZE= 16; //set the size of counter according to the chosen type
 const int MAX_CNT=(1 << (COUNTER_SIZE - 1)) - 1;
 const int MIN_CNT=-(1 << (COUNTER_SIZE - 1));
 
-using type = uint8_t;
-using sign = int8_t;
-using long_sign = int16_t;
+using type = u_int8_t;      //different types of counters
+using sign = __int8_t;
+using long_sign = __int16_t;
 
 const type powers[10]={1,2,4,8,16,32,64,128};
 
-const uint16_t long_powers[20]={1,2,4,8,16,32,64,128,
+const u_int16_t long_powers[20]={1,2,4,8,16,32,64,128,
                       256,512,1024,2048,4096,
-                      8192,16384,32768};
+                      8192,16384,32768}; //list out the power of 2 for later use
 
 const sign edge[8]={0,64,96,112,120,124,126,127};
+//edges are the value of counter for the starting of each stages for SAC
 const long_sign long_edge[17]={0,16384,24576,28672,30720,31744,32256,32512,32640,32704,32752,32760,32764,32766,32767};
+
 
 
 const type high_bit=128;
 const type second_high_bit=64;
 
-const long_sign long_high_bit=32768;
+const long_sign long_high_bit=32768; //the value of 16-bit counter where only the leftmost bit is 1
 const long_sign long_second_high_bit=16384;
 
-const long_sign long_maxi=32767;
+const long_sign long_maxi=32767; //the maximum value for signed 16-bit counter
 const long_sign long_mini=-32767;
 
 
-void greeting() {
-
-	cout << "***************" << endl;
-	cout << "**This is SAC**" << endl;
-	cout << "***************" << endl << endl;
-	cout << "Welcome! To test SAC on different datasets," << endl;
-	cout << "Type 'CAIDA','webpage' or 'synthetic'" << endl;
-
+void greeting(){
+    cout<<"***************"<<endl;
+    cout<<"**This is SAC**"<<endl;
+    cout<<"***************"<<endl<<endl;
+    cout<<"Welcome! To test SAC on different datasets,"<<endl;
+    cout<<"Type 'CAIDA','webpage' or 'synthetic'"<<endl;
 }
 
 void bprint(type x){ //print binary value of x
@@ -68,7 +69,6 @@ int get_val(type x,int base=0){//return the actual unsigned value stored in one 
         ++pos;
         delta=delta>>1;
     }
-    //cout<<"pos="<<pos<<endl;
     for(int i=0;i<=6-pos;++i){
         ones += powers[i];
     }
@@ -104,6 +104,8 @@ int get_signed_val(sign x,int base=0){ //return the actual signed value stored i
         return ((ones&x)<<(pos+base))+(64*pos*pow(2,base));
     }
 }
+
+
 double predict(sign x,double *gamma){
     if(x>=125)return MAX_CNT;
     if(x<=-125)return MIN_CNT;
@@ -142,15 +144,58 @@ double predict(sign x,double *gamma){
     }
 }
 
-int diguihanshu(int n){if(n==1)return 1;return n*diguihanshu(n-1);}
+//this function returns the predict value of an 16-bit static version SAC
+double predict(long_sign x, int l_sign,double *gamma){  //l_sign is the length of sign section
+    long_sign delta=long_second_high_bit; //This variable is used to get the value of certain bit in SAC
+    int sign_bits=0;
+    int ones=0;
+    double ret=0;
+    if(x<0){
+        long_sign y= ~x+1; //if x is nagative, take the 2's complement of it
+        //read the sign bits
+        for(int i=0;i<l_sign;++i){
+            if(y&delta){
+                sign_bits += pow(2,l_sign-i-1);
+            }
+            delta=delta>>1;
+        }
+        for(int i=0;i<15-l_sign;++i){
+            ones+=long_powers[i];
+        }
+        //add up the value for all previous stages
+        for(int i=0;i<sign_bits;++i){
+            ret+=gamma[i]*(long_powers[15-l_sign]-1);
+        }
+        return -gamma[sign_bits]*(ones&y)-ret;
 
+    }
+    else{   //if x is positive
+        for(int i=0;i<l_sign;++i){
+            if(x&delta){
+                sign_bits += pow(2,l_sign-i-1);
+            }
+            delta=delta>>1;
+
+        }
+        for(int i=0;i<15-l_sign;++i){
+            ones+=long_powers[i];
+        }
+        //add up the value for all previous stages
+        for(int i=0;i<sign_bits;++i){
+            ret+=gamma[i]*(long_powers[15-l_sign]-1);
+        }
+        return gamma[sign_bits]*(ones&x)+ret;
+    }
+}
+
+//this function returns the predict value of an 16-bit dynamic version SAC
 double predict(long_sign x,double *gamma){
     unsigned short pos=0;
     long_sign delta=long_second_high_bit;
     long_sign ones=0;
     double answer=0;
     if(x<0){
-        long_sign y = ~x+1;
+        long_sign y = ~x+1; //if x is nagative, take the 2's complement of it
         while((y&delta)&&delta>=1){
             ++pos;
             delta=delta>>1;
@@ -175,119 +220,13 @@ double predict(long_sign x,double *gamma){
         answer += (ones&x)*gamma[pos];
         for(int i=0;i<pos;++i){
             //[](int (*f)(int)){return [=](int i){return f(i);};}([](int x){return x*x;})(3);
-            //if(diguihanshu(i+20)==0)return -1;
-            //cout<<"i="<<[](int x){return x;}(i)<<endl;
             answer += gamma[i]*pow(2,14-i);
 
         }
         return answer;
     }
 }
-void add_one(long_sign &x, int l_sign, double* gamma) {
-	if (predict(x, gamma) + 1 >= predict(long_maxi, gamma)) {
-		cout << "overflow!" << endl;
-		x = long_maxi;
-		return;
-	}
-	long_sign delta = long_second_high_bit;
-	int sign_bits = 0;
-	if (x<0) {
-		long_sign y = ~x + 1;
-		for (int i = 0; i<l_sign; ++i) {
-			if (y&delta) {
-				sign_bits += pow(2, l_sign - i - 1);
-			}
-			delta = delta >> 1;
-		}
-		double add = 1 / gamma[sign_bits];
-		double r = (rand() % RAND_MAX) / (double)(RAND_MAX);
-		if (r < add)++x;
-		return;
-	}
-	for (int i = 0; i<l_sign; ++i) {
-		if (x&delta) {
-			sign_bits += pow(2, l_sign - i - 1);
-		}
-		delta = delta >> 1;
-	}
-	double add = 1.0 / gamma[sign_bits];
-	double r = (rand() % RAND_MAX) / (double)(RAND_MAX);
-	if (r < add)++x;
-	return;
-}
-void minus_one(long_sign &x, int l_sign, double* gamma) {
-	if (predict(x, gamma) - 1 <= predict(long_mini, gamma)) {
-		cout << "underflow!" << endl;
-		x = long_mini;
-		return;
-	}
-	long_sign delta = long_second_high_bit;
-	int sign_bits = 0;
-	if (x <= 0) {
-		long_sign y = ~x + 1;
-		for (int i = 0; i<l_sign; ++i) {
-			if (y&delta) {
-				sign_bits += pow(2, l_sign - i - 1);
-			}
-			delta = delta >> 1;
-		}
-		double add = 1 / gamma[sign_bits];
-		double r = (rand() % RAND_MAX) / (double)(RAND_MAX);
-		if (r < add)--x;
-		return;
-	}
-	for (int i = 0; i<l_sign; ++i) {
-		if (x&delta) {
-	    	sign_bits += pow(2, l_sign - i - 1);
-		}
-		delta = delta >> 1;
-	}
-	double add = 1.0 / gamma[sign_bits];
-	double r = (rand() % RAND_MAX) / (double)(RAND_MAX);
 
-	if (r < add)--x;
-	return;
-}
-double predict(long_sign x, int l_sign, double *gamma) {
-
-	long_sign delta = long_second_high_bit;
-	int sign_bits = 0;
-	int ones = 0;
-	double ret = 0;
-	if (x<0) {
-		long_sign y = ~x + 1;
-		for (int i = 0; i<l_sign; ++i) {
-			if (y&delta) {
-				sign_bits += pow(2, l_sign - i - 1);
-			}
-			delta = delta >> 1;
-		}
-		for (int i = 0; i<15 - l_sign; ++i) {
-			ones += long_powers[i];
-		}
-		for (int i = 0; i<sign_bits; ++i) {
-			ret += gamma[i] * (long_powers[15 - l_sign] - 1);
-		}
-		return -gamma[sign_bits] * (ones&y) - ret;
-	}
-	else {
-		for (int i = 0; i<l_sign; ++i) {
-			if (x&delta) {
-				sign_bits += pow(2, l_sign - i - 1);
-			}
-			delta = delta >> 1;
-		}
-
-		for (int i = 0; i<15 - l_sign; ++i) {
-			ones += long_powers[i];
-		}
-		for (int i = 0; i<sign_bits; ++i) {
-			ret += gamma[i] * (long_powers[15 - l_sign] - 1);
-		}
-		return gamma[sign_bits] * (ones&x) + ret;
-	}
-
-}
 void add_one(type &x){
     if(x>=253){cout<<"overflow!"<<endl;return;}
     if((x&high_bit)==0){++x;return;}
@@ -326,6 +265,75 @@ void add_one(sign &x, int base){
 
 }
 
+void add_one(long_sign &x, int l_sign,double* gamma){
+    if(predict(x,gamma)+1 >= predict(long_maxi,gamma)){
+        cout<<"overflow!"<<endl;
+        x=long_maxi;
+        return;
+    }
+    long_sign delta=long_second_high_bit;
+    int sign_bits=0;
+    if(x<0){
+        long_sign y= ~x+1;
+        for(int i=0;i<l_sign;++i){
+            if(y&delta){
+                sign_bits += pow(2,l_sign-i-1);
+            }
+            delta=delta>>1;
+        }
+        double add=1/gamma[sign_bits];
+        double r=(rand()%RAND_MAX)/(double)(RAND_MAX);
+            if(r < add)++x;
+            return;
+    }
+    for(int i=0;i<l_sign;++i){
+        if(x&delta){
+            sign_bits += pow(2,l_sign-i-1);
+        }
+        delta=delta>>1;
+    }
+    double add=1.0/gamma[sign_bits];
+    double r=(rand()%RAND_MAX)/(double)(RAND_MAX);
+        if(r < add)++x;
+        return;
+
+}
+
+void minus_one(long_sign &x, int l_sign,double* gamma){
+    if(predict(x,gamma)-1 <= predict(long_mini,gamma)){
+        cout<<"underflow!"<<endl;
+        x=long_mini;
+        return;
+    }
+    long_sign delta=long_second_high_bit;
+    int sign_bits=0;
+    if(x<=0){
+        long_sign y= ~x+1;
+        for(int i=0;i<l_sign;++i){
+            if(y&delta){
+                sign_bits += pow(2,l_sign-i-1);
+            }
+            delta=delta>>1;
+        }
+        double add=1/gamma[sign_bits];
+        double r=(rand()%RAND_MAX)/(double)(RAND_MAX);
+            if(r < add)--x;
+            return;
+    }
+    for(int i=0;i<l_sign;++i){
+        if(x&delta){
+            sign_bits += pow(2,l_sign-i-1);
+        }
+        delta=delta>>1;
+    }
+    double add=1.0/gamma[sign_bits];
+    double r=(rand()%RAND_MAX)/(double)(RAND_MAX);
+        if(r < add)--x;
+        return;
+
+}
+
+
 void adding(sign &x,int c,double *gamma){
     if(c<0){cout<<"illeagal adding"<<endl;return;}
     if(x>=125){cout<<"overflow!"<<endl;return;}
@@ -341,13 +349,13 @@ void adding(sign &x,int c,double *gamma){
         //and we first add c/gamma[pos] to the counter
         double add=c/gamma[pos];
         if(add<1){
-            if((rand()% RAND_MAX) / (double)RAND_MAX < add)++x;
+            if((rand()%RAND_MAX)/(double)RAND_MAX < add)++x;
             return;
         }
         else{
             if(add<=y-edge[pos]){
                 x+=(int)add;
-                if((rand()% RAND_MAX) / (double)RAND_MAX < add-(int)add)++x;
+                if((rand()%RAND_MAX)/(double)RAND_MAX < add-(int)add)++x;
                 return;
             }
             else{
@@ -365,13 +373,13 @@ void adding(sign &x,int c,double *gamma){
         }
         double add=c/gamma[pos];
         if(add<1){
-            if((rand()% RAND_MAX) / (double)RAND_MAX < add)++x;
+            if((rand()%100)/101.0 < add)++x;
             return;
         }
         else{
             if(add < (edge[pos+1]-x)){
                 x+=(int)add;
-                if((rand()% RAND_MAX) / (double)RAND_MAX < add-(int)add)++x;
+                if((rand()%100)/101.0 < add-(int)add)++x;
                 return;
             }
             else{
@@ -387,14 +395,14 @@ void adding(sign &x,int c,double *gamma){
 void adding(long_sign &x,int c,double *gamma){
     if(c<0){cout<<"illeagal adding "<<c<<endl;return;}
     if(predict(x,gamma)+c >= predict(long_maxi,gamma)){
-        cout<<"overflow!"<< predict(x, gamma)<<endl;
+        cout<<"overflow!"<<endl;
         x=long_maxi;
         return;
     }
     unsigned short pos=0;
-    uint16_t delta=long_second_high_bit;
+    __uint16_t delta=long_second_high_bit;
     if(x<0){
-        uint16_t y = ~x+1;
+        __uint16_t y = ~x+1;
         while((y&delta)&&delta>=1){
             ++pos;
             delta=delta>>1;
@@ -403,13 +411,13 @@ void adding(long_sign &x,int c,double *gamma){
         //and we first add c/gamma[pos] to the counter
         double add=c/gamma[pos];
         if(add<1){
-            if((rand()%RAND_MAX)/(double )RAND_MAX < add)++x;
+            if((rand()%RAND_MAX)/(double)RAND_MAX < add)++x;
             return;
         }
         else{
             if(add<=y-long_edge[pos]){
                 x+=(int)add;
-                if((rand()%RAND_MAX)/(double )RAND_MAX < add-(int)add)++x;
+                if((rand()%RAND_MAX)/(double)RAND_MAX < add-(int)add)++x;
                 return;
             }
             else{
@@ -429,13 +437,13 @@ void adding(long_sign &x,int c,double *gamma){
         }
         double add=c/gamma[pos];
         if(add<1){
-            if((rand()% RAND_MAX) / (double)RAND_MAX < add)++x;
+            if((rand()%RAND_MAX)/(double)RAND_MAX < add)++x;
             return;
         }
         else{
             if(add < (long_edge[pos+1]-x)){
                 x+=(int)add;
-                if((rand()% RAND_MAX) / (double)RAND_MAX < add-(int)add)++x;
+                if((rand()%RAND_MAX)/(double)RAND_MAX < add-(int)add)++x;
                 return;
             }
             else{
@@ -456,22 +464,22 @@ void subtracting(long_sign &x, int c,double *gamma){
         return;
     }
     unsigned short pos=0;
-    uint16_t delta=long_second_high_bit;
+    __uint16_t delta=long_second_high_bit;
     if(x<=0){//It's important to deal with 0 here in this case
-        uint16_t y = ~x+1;
+        __uint16_t y = ~x+1;
         while((y&delta)&&delta>=1){
             ++pos;
             delta=delta>>1;
         }
         double minus=c/gamma[pos];
         if(minus<1){
-            if((rand()% RAND_MAX) / (double)RAND_MAX < minus)--x;
+            if((rand()%RAND_MAX)/(double)RAND_MAX < minus)--x;
             return;
         }
         else{
             if(minus<=long_edge[pos+1]-y){
                 x-=(int)minus;
-                if((rand()% RAND_MAX) / (double)RAND_MAX < minus-(int)minus)--x;
+                if((rand()%RAND_MAX)/(double)RAND_MAX < minus-(int)minus)--x;
                 return;
             }
             else{
@@ -488,13 +496,13 @@ void subtracting(long_sign &x, int c,double *gamma){
         }
         double minus=c/gamma[pos];
         if(minus<1){
-            if((rand()% RAND_MAX) / (double)RAND_MAX < minus)--x;
+            if((rand()%RAND_MAX)/(double)RAND_MAX < minus)--x;
             return;
         }
         else{
             if(minus < (x-long_edge[pos])){
                 x-=(int)minus;
-                if((rand()% RAND_MAX) / (double)RAND_MAX < minus-(int)minus)--x;
+                if((rand()%RAND_MAX)/(double)RAND_MAX < minus-(int)minus)--x;
                 return;
             }
             else{
@@ -525,13 +533,13 @@ void subtracting(sign &x,int c,double *gamma){
         //and we first minus c/gamma[pos] to the counter
         double minus=c/gamma[pos];
         if(minus<1){
-            if((rand()% RAND_MAX) / (double)RAND_MAX < minus)--x;
+            if((rand()%100)/101.0 < minus)--x;
             return;
         }
         else{
             if(minus<=edge[pos+1]-y){
                 x-=(int)minus;
-                if((rand()% RAND_MAX) / (double)RAND_MAX < minus-(int)minus)--x;
+                if((rand()%100)/101.0 < minus-(int)minus)--x;
                 return;
             }
             else{
@@ -549,13 +557,13 @@ void subtracting(sign &x,int c,double *gamma){
         }
         double minus=c/gamma[pos];
         if(minus<1){
-            if((rand()% RAND_MAX) / (double)RAND_MAX < minus)--x;
+            if((rand()%100)/101.0 < minus)--x;
             return;
         }
         else{
             if(minus < (x-edge[pos])){
                 x-=(int)minus;
-                if((rand()% RAND_MAX) / (double)RAND_MAX < minus-(int)minus)--x;
+                if((rand()%100)/101.0 < minus-(int)minus)--x;
                 return;
             }
             else{
@@ -610,7 +618,7 @@ double test(int x,int times,double *gamma){
     double mean=0,var=0;
     //cout<<"now testing the pro-adder on the number "<<x<<endl;
     for(int i=0;i<times;++i){
-        srand(2*i+3);                                                              
+        srand(2*i+3);
         counter=0;
         adding(counter,x,gamma);
         mean+=predict(counter,gamma);
@@ -621,3 +629,6 @@ double test(int x,int times,double *gamma){
     cout<<"mean="<<mean<<" var= "<<var<<endl;
     return sqrt(var)/x;
 }
+
+#endif // ADDER_H
+
