@@ -1,5 +1,4 @@
-#ifndef ADDER_H
-#define ADDER_H
+#pragma once
 
 #include <math.h>
 #include <stdio.h>
@@ -630,5 +629,5 @@ double test(int x,int times,double *gamma){
     return sqrt(var)/x;
 }
 
-#endif // ADDER_H
+// ADDER_H
 
