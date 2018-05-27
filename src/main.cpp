@@ -18,7 +18,6 @@
 using namespace std;
 
 
-
 int main()
 {
 	greeting();
