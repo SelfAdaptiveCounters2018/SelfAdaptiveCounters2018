@@ -51,6 +51,8 @@ public:
 			bobhash[i] = new BOBHash(i + 1000);
 		}
 	}
+	
+	//The insert function for int counters
     void Insert(const char * str,int c)
 	{
 		int g = 0;
@@ -78,6 +80,7 @@ public:
             }
 		}
 	}
+	//the query function for int counters
 	int Query(const char *str)
 	{
 		int temp;
@@ -102,6 +105,7 @@ public:
 		}
 		return r;
 	}
+	//the delete function for int counters
 	void Delete(const char * str)
 	{
 		int g = 0;
@@ -126,6 +130,7 @@ public:
 			}
 		}
 	}
+	//the insert functions for dynamic sign bits version SAC
     void dynamic_sac_insert(const char *str,int c,double *gamma){
 
         int g = 0;
@@ -147,6 +152,7 @@ public:
 
         }
     }
+    //the query function for dynamic sign bits SAC
 	int dynamic_sac_query(const char *str, double *gamma) {
 		int temp;
 		int res[20];
@@ -170,6 +176,7 @@ public:
 		}
 		return r;
 	}
+	//the insert function for static sign bits version SAC
 	void static_sac_insert(const char *str, int l_sign, double *gamma) {
 
 		int g = 0;
@@ -190,6 +197,7 @@ public:
 			}
 		}
 	}
+	//query function for static version SAC
 	int static_sac_query(const char *str,int l_sign, double *gamma) {
 		int temp;
 		int res[20];
@@ -202,8 +210,6 @@ public:
 			res[i] = (g == 0 ? temp : -temp);
 		}
 		sort(res, res + d);
-	//	for (auto thing : res)cout << thing << "  ";
-	//	cout << endl;
 		int r;
 		if (d % 2 == 0)
 		{
@@ -215,8 +221,7 @@ public:
 		}
 		return r;
 	}
-//
-
+//function used to inspect the value of "d mapped counters"
     void check(const char *str,double *gamma){     
         int temp;
 		int result[22];
