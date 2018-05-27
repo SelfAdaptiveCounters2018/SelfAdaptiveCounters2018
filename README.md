@@ -12,7 +12,7 @@ To verify the effectiveness and efficiency of our technique,we applied our SAC t
 ### About the source codes,  dataset and parameters setting
 The source code contains the C++ implementation of the CM, CU, C  sketch and our corresponding SAC version, including Dynamic Sign Bits version and Static Sign Bits version.We complete these codes on Windows 10 version 1803 and compile successfully using visual studio 2017.
 
-The folder named data contains some datasets we used in our experiments. These datasets include: CAIDA.dat, webpage.txt and others  related to our synthetic experiments. The parameters setting is the same as mentioned in our papers.
+The folder named data contains some datasets we used in our experiments. These datasets include: CAIDA.dat, webpage.txt and others  related to our synthetic experiments(The integer in the file name equals 10*a and a is the parameter of Zipf function). The parameters setting is the same as mentioned in our papers.
 
 
 ### Requirements
@@ -24,7 +24,7 @@ Windows SDK version: 10.0.16299.0
 
 ### How to build
 
-
+In the folder: SAC_project, open SAC_project.sln with Microsoft Visual Studio 2017, compile and  run this project. 
 
 ### Related paper
 *A Generic Technique for Sketches to Adapt to Different Counting Ranges*(submitted to ICNP 2018)
