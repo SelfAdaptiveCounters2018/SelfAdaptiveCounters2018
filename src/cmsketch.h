@@ -33,6 +33,7 @@ public:
                     memset(int_counter[i], 0, sizeof(int) * w);
                 }
     }
+	//insert function for int counters
 	void Insert(const char *str, int c) {
 		for (int i = 0; i < d; i++) {
 			index[i] = (bobhash[i]->run(str, strlen(str))) % w;
@@ -41,6 +42,7 @@ public:
 			}
 		}
 	}
+	//query function for int counters
 	int Query(const char *str) {
 		int min_value = MAX_CNT;
 		int temp;
@@ -53,12 +55,15 @@ public:
 		}
 		return min_value;
 	}
+	
+	//the insert function for dynamic sign bits SAC, the function adds c to "d mapped counters"
     void dynamic_sac_insert(const char *str,int c,double *gamma){
         for(int i = 0; i < d; i++){
             index[i] = (bobhash[i]->run(str, strlen(str))) % w;
             adding(counter[i][index[i]],c,gamma);
         }
     }
+	//the query function for dynamic sign bits SAC
 	int dynamic_sac_query(const char *str, double *gamma)
 	{
 		long_sign min_value = long_maxi;
@@ -73,12 +78,14 @@ public:
 		return predict(min_value, gamma);
 
 	}
+	//the insert function for fixed sign bits SAC, the function adds c to "d mapped counters"
 	void static_sac_insert(const char *str,int l_sign, double *gamma) {
 		for (int i = 0; i < d; i++) {
 			index[i] = (bobhash[i]->run(str, strlen(str))) % w;
 			add_one(counter[i][index[i]],l_sign, gamma);
 		}
 	}	
+	//the query function for fixed sign bits SAC
 	int static_sac_query(const char *str,int l_sign, double *gamma)
 	{
 		long_sign min_value = long_maxi;
@@ -93,6 +100,7 @@ public:
 		return predict(min_value,l_sign, gamma);
 
 	} 
+	//the debug function used to print values in "d mapped counters" correspond with str
 	void check(const char *str, double *gamma) {
 		int temp;
 		int result[22];
