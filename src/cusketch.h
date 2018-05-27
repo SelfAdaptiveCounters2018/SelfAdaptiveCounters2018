@@ -51,6 +51,7 @@ public:
             bobhash[i] = new BOBHash(i + 1000);
         }
     }
+    //insert function for int counters
 	void Insert(const char *str, int c) {
 		int min_value = MAX_COUNT;
 		int temp;
@@ -76,6 +77,7 @@ public:
 			}
 		}
 	}
+	//query function for counters of int data type
 	int Query(const char *str)
 	{
 		int min_value = 1 << 30;
@@ -88,6 +90,7 @@ public:
 		}
 		return min_value;
 	}
+	//insert function for dynamic version SAC
 	void dynamic_sac_insert(const char *str, int c, double *gamma) { 
 		int min_value = (int)predict(long_maxi, gamma);
 		int temp;
@@ -117,6 +120,7 @@ public:
 			}
 		}
 	}
+	//query function for dynamic version SAC
 	int dynamic_sac_query(const char *str, double *gamma) {
 		int min_value = (int)predict(long_maxi, gamma);
 		int temp;
@@ -131,7 +135,7 @@ public:
 		}
 		return predict(sac_counter[ind][index[ind]], gamma);
 	}
-
+	//insert function for static version SAC
 	void static_sac_insert(const char *str, int l_sign, double *gamma) { 
 		int min_value = (int)predict(long_maxi,l_sign, gamma);
 		int temp;
@@ -162,7 +166,7 @@ public:
 		}
 	}
 
-	
+	//query function for static version of SAC
 	int static_sac_query(const char *str,int l_sign, double *gamma) {
 		int min_value = (int)predict(long_maxi,l_sign, gamma);
 		int temp;
@@ -177,7 +181,7 @@ public:
 		}
 		return predict(sac_counter[ind][index[ind]],l_sign, gamma);
 	}
-
+//debug function
 	void check(const char *str) {
 		int temp;
 		int result[22];
