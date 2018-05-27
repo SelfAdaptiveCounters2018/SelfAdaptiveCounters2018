@@ -104,8 +104,8 @@ int get_signed_val(sign x,int base=0){ //return the actual signed value stored i
     }
 }
 
-
-double predict(sign x,double *gamma){
+//this function retures the value of signed 8-bit SAC
+double predict(sign x,double *gamma){ 
     if(x>=125)return MAX_CNT;
     if(x<=-125)return MIN_CNT;
     unsigned short pos=0;
@@ -240,6 +240,7 @@ void add_one(type &x){
     return;
 }
 
+//this a the procedure to add one on a signed 8-bit SAC
 void add_one(sign &x, int base){
     if(x>=125){cout<<"overflow!"<<endl;return;}
     unsigned short pos=0;
@@ -264,6 +265,7 @@ void add_one(sign &x, int base){
 
 }
 
+//this is the add one function for fixed version of 16-bit SAC
 void add_one(long_sign &x, int l_sign,double* gamma){
     if(predict(x,gamma)+1 >= predict(long_maxi,gamma)){
         cout<<"overflow!"<<endl;
@@ -298,6 +300,7 @@ void add_one(long_sign &x, int l_sign,double* gamma){
 
 }
 
+//this is the minus one function for fixed version of 16-bit SAC
 void minus_one(long_sign &x, int l_sign,double* gamma){
     if(predict(x,gamma)-1 <= predict(long_mini,gamma)){
         cout<<"underflow!"<<endl;
@@ -332,7 +335,7 @@ void minus_one(long_sign &x, int l_sign,double* gamma){
 
 }
 
-
+//this function adds c to a signed 8-bit SAC
 void adding(sign &x,int c,double *gamma){
     if(c<0){cout<<"illeagal adding"<<endl;return;}
     if(x>=125){cout<<"overflow!"<<endl;return;}
@@ -455,6 +458,7 @@ void adding(long_sign &x,int c,double *gamma){
     }
 }
 
+//this function substract c from the 16-bit Dynamic version of SAC
 void subtracting(long_sign &x, int c,double *gamma){
     if(c<0){cout<<"illeagal subtracting"<<endl;return;}
     if( ((predict(x,gamma))-c) <= predict(long_mini,gamma) ){
@@ -516,7 +520,7 @@ void subtracting(long_sign &x, int c,double *gamma){
     }
 }
 
-
+//this function substract c from the 8-bit SAC
 void subtracting(sign &x,int c,double *gamma){
 
     if(x<=-125){cout<<"underflow!"<<endl;return;}
@@ -575,59 +579,6 @@ void subtracting(sign &x,int c,double *gamma){
     }
 }
 
-void minus_one(sign &x, int base){
-    unsigned short pos=0;
-    type delta=second_high_bit;
-    if(x<=-125){cout<<"underflow!"<<endl;return;}
-    if(x<0){
-        type y = ~x+1;
-        while((y&delta)&&delta>=1){
-            ++pos;
-            delta=delta>>1;
-        }
-        if(rand()%(1<<(pos+base))==0)
-            --x;
-        return;
-    }
-    while((x&delta)&&delta>=1){
-        ++pos;
-        delta=delta>>1;
-    }
-    if(rand()%(1<<(pos+base))==0)
-        --x;
-    return;
-}
-
-void minus_one(type &x){
-    if(x==0){cout<<"underflow!"<<endl;return;}
-    if((x&high_bit)==0){--x;return;}
-    int pos=0;
-    type delta=high_bit;
-    while((x&delta)&&delta>=1){
-        ++pos;
-        delta=delta>>1;
-    }
-    if(rand()%(1<<pos)==1)
-        --x;
-    return;
-}
-
-double test(int x,int times,double *gamma){
-    sign counter=0;
-    double mean=0,var=0;
-    //cout<<"now testing the pro-adder on the number "<<x<<endl;
-    for(int i=0;i<times;++i){
-        srand(2*i+3);
-        counter=0;
-        adding(counter,x,gamma);
-        mean+=predict(counter,gamma);
-        var+=(predict(counter,gamma)-x)*(predict(counter,gamma)-x);
-    }
-    mean /= times;
-    var /= times;
-    cout<<"mean="<<mean<<" var= "<<var<<endl;
-    return sqrt(var)/x;
-}
 
  // ADDER_H
 
