@@ -1,0 +1,80 @@
+﻿  main.cpp
+c:\users\liuxilai2012\selfadaptivecounters2018\sac_project\sac_project\sac.h(32): warning C4309: “初始化”: 截断常量值
+c:\users\liuxilai2012\selfadaptivecounters2018\sac_project\sac_project\sac.h(74): warning C4244: “return”: 从“double”转换到“int”，可能丢失数据
+c:\users\liuxilai2012\selfadaptivecounters2018\sac_project\sac_project\sac.h(93): warning C4244: “return”: 从“double”转换到“int”，可能丢失数据
+c:\users\liuxilai2012\selfadaptivecounters2018\sac_project\sac_project\sac.h(103): warning C4244: “return”: 从“double”转换到“int”，可能丢失数据
+c:\users\liuxilai2012\selfadaptivecounters2018\sac_project\sac_project\sac.h(157): warning C4244: “+=”: 从“double”转换到“int”，可能丢失数据
+c:\users\liuxilai2012\selfadaptivecounters2018\sac_project\sac_project\sac.h(174): warning C4244: “+=”: 从“double”转换到“int”，可能丢失数据
+c:\users\liuxilai2012\selfadaptivecounters2018\sac_project\sac_project\sac.h(281): warning C4244: “+=”: 从“double”转换到“int”，可能丢失数据
+c:\users\liuxilai2012\selfadaptivecounters2018\sac_project\sac_project\sac.h(292): warning C4244: “+=”: 从“double”转换到“int”，可能丢失数据
+c:\users\liuxilai2012\selfadaptivecounters2018\sac_project\sac_project\sac.h(316): warning C4244: “+=”: 从“double”转换到“int”，可能丢失数据
+c:\users\liuxilai2012\selfadaptivecounters2018\sac_project\sac_project\sac.h(327): warning C4244: “+=”: 从“double”转换到“int”，可能丢失数据
+c:\users\liuxilai2012\selfadaptivecounters2018\sac_project\sac_project\sac.h(366): warning C4244: “参数”: 从“double”转换到“int”，可能丢失数据
+c:\users\liuxilai2012\selfadaptivecounters2018\sac_project\sac_project\sac.h(390): warning C4244: “参数”: 从“double”转换到“int”，可能丢失数据
+c:\users\liuxilai2012\selfadaptivecounters2018\sac_project\sac_project\sac.h(430): warning C4244: “参数”: 从“double”转换到“int”，可能丢失数据
+c:\users\liuxilai2012\selfadaptivecounters2018\sac_project\sac_project\sac.h(454): warning C4244: “参数”: 从“double”转换到“int”，可能丢失数据
+c:\users\liuxilai2012\selfadaptivecounters2018\sac_project\sac_project\sac.h(491): warning C4244: “参数”: 从“double”转换到“int”，可能丢失数据
+c:\users\liuxilai2012\selfadaptivecounters2018\sac_project\sac_project\sac.h(517): warning C4244: “参数”: 从“double”转换到“int”，可能丢失数据
+c:\users\liuxilai2012\selfadaptivecounters2018\sac_project\sac_project\sac.h(551): warning C4244: “参数”: 从“double”转换到“int”，可能丢失数据
+c:\users\liuxilai2012\selfadaptivecounters2018\sac_project\sac_project\sac.h(575): warning C4244: “参数”: 从“double”转换到“int”，可能丢失数据
+c:\users\liuxilai2012\selfadaptivecounters2018\sac_project\sac_project\cmsketch.h(78): warning C4244: “return”: 从“double”转换到“int”，可能丢失数据
+c:\users\liuxilai2012\selfadaptivecounters2018\sac_project\sac_project\cmsketch.h(100): warning C4244: “return”: 从“double”转换到“int”，可能丢失数据
+c:\users\liuxilai2012\selfadaptivecounters2018\sac_project\sac_project\cmsketch.h(111): warning C4244: “=”: 从“double”转换到“int”，可能丢失数据
+c:\users\liuxilai2012\selfadaptivecounters2018\sac_project\sac_project\cmsketch.h(105): warning C4101: “temp”: 未引用的局部变量
+c:\users\liuxilai2012\selfadaptivecounters2018\sac_project\sac_project\cusketch.h(47): warning C4293: “<<”: Shift 计数为负或过大，其行为未定义
+c:\users\liuxilai2012\selfadaptivecounters2018\sac_project\sac_project\cusketch.h(101): warning C4244: “=”: 从“double”转换到“int”，可能丢失数据
+c:\users\liuxilai2012\selfadaptivecounters2018\sac_project\sac_project\cusketch.h(131): warning C4244: “=”: 从“double”转换到“int”，可能丢失数据
+c:\users\liuxilai2012\selfadaptivecounters2018\sac_project\sac_project\cusketch.h(136): warning C4244: “return”: 从“double”转换到“int”，可能丢失数据
+c:\users\liuxilai2012\selfadaptivecounters2018\sac_project\sac_project\cusketch.h(146): warning C4244: “=”: 从“double”转换到“int”，可能丢失数据
+c:\users\liuxilai2012\selfadaptivecounters2018\sac_project\sac_project\cusketch.h(177): warning C4244: “=”: 从“double”转换到“int”，可能丢失数据
+c:\users\liuxilai2012\selfadaptivecounters2018\sac_project\sac_project\cusketch.h(182): warning C4244: “return”: 从“double”转换到“int”，可能丢失数据
+c:\users\liuxilai2012\selfadaptivecounters2018\sac_project\sac_project\cusketch.h(186): warning C4101: “temp”: 未引用的局部变量
+c:\users\liuxilai2012\selfadaptivecounters2018\sac_project\sac_project\csketch.h(163): warning C4244: “=”: 从“double”转换到“int”，可能丢失数据
+c:\users\liuxilai2012\selfadaptivecounters2018\sac_project\sac_project\csketch.h(208): warning C4244: “=”: 从“double”转换到“int”，可能丢失数据
+c:\users\liuxilai2012\selfadaptivecounters2018\sac_project\sac_project\csketch.h(232): warning C4244: “=”: 从“double”转换到“int”，可能丢失数据
+c:\users\liuxilai2012\selfadaptivecounters2018\sac_project\sac_project\csketch.h(226): warning C4101: “temp”: 未引用的局部变量
+c:\users\liuxilai2012\selfadaptivecounters2018\sac_project\sac_project\exp.h(24): warning C4244: “初始化”: 从“double”转换到“int”，可能丢失数据
+c:\users\liuxilai2012\selfadaptivecounters2018\sac_project\sac_project\exp.h(25): warning C4244: “参数”: 从“double”转换到“int”，可能丢失数据
+c:\users\liuxilai2012\selfadaptivecounters2018\sac_project\sac_project\exp.h(26): warning C4244: “参数”: 从“double”转换到“int”，可能丢失数据
+c:\users\liuxilai2012\selfadaptivecounters2018\sac_project\sac_project\exp.h(39): warning C4244: “参数”: 从“double”转换到“int”，可能丢失数据
+c:\users\liuxilai2012\selfadaptivecounters2018\sac_project\sac_project\exp.h(46): warning C4244: “参数”: 从“double”转换到“int”，可能丢失数据
+c:\users\liuxilai2012\selfadaptivecounters2018\sac_project\sac_project\exp.h(52): warning C4244: “参数”: 从“double”转换到“int”，可能丢失数据
+c:\users\liuxilai2012\selfadaptivecounters2018\sac_project\sac_project\exp.h(58): warning C4244: “参数”: 从“double”转换到“int”，可能丢失数据
+c:\users\liuxilai2012\selfadaptivecounters2018\sac_project\sac_project\exp.h(64): warning C4244: “参数”: 从“double”转换到“int”，可能丢失数据
+c:\users\liuxilai2012\selfadaptivecounters2018\sac_project\sac_project\exp.h(70): warning C4244: “参数”: 从“double”转换到“int”，可能丢失数据
+c:\users\liuxilai2012\selfadaptivecounters2018\sac_project\sac_project\exp.h(115): warning C4018: “<”: 有符号/无符号不匹配
+c:\users\liuxilai2012\selfadaptivecounters2018\sac_project\sac_project\exp.h(86): warning C4474: sprintf: 格式字符串中传递的参数太多
+  c:\users\liuxilai2012\selfadaptivecounters2018\sac_project\sac_project\exp.h(86): note: 占位符和其参数预计 0 可变参数，但提供的却是 1 参数
+c:\users\liuxilai2012\selfadaptivecounters2018\sac_project\sac_project\exp.h(86): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.16299.0\ucrt\stdio.h(1772): note: 参见“sprintf”的声明
+c:\users\liuxilai2012\selfadaptivecounters2018\sac_project\sac_project\exp.h(88): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.16299.0\ucrt\stdio.h(207): note: 参见“fopen”的声明
+c:\users\liuxilai2012\selfadaptivecounters2018\sac_project\sac_project\exp.h(117): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.16299.0\ucrt\string.h(132): note: 参见“strcpy”的声明
+c:\users\liuxilai2012\selfadaptivecounters2018\sac_project\sac_project\exp.h(193): warning C4244: “参数”: 从“double”转换到“int”，可能丢失数据
+c:\users\liuxilai2012\selfadaptivecounters2018\sac_project\sac_project\exp.h(200): warning C4244: “参数”: 从“double”转换到“int”，可能丢失数据
+c:\users\liuxilai2012\selfadaptivecounters2018\sac_project\sac_project\exp.h(206): warning C4244: “参数”: 从“double”转换到“int”，可能丢失数据
+c:\users\liuxilai2012\selfadaptivecounters2018\sac_project\sac_project\exp.h(212): warning C4244: “参数”: 从“double”转换到“int”，可能丢失数据
+c:\users\liuxilai2012\selfadaptivecounters2018\sac_project\sac_project\exp.h(218): warning C4244: “参数”: 从“double”转换到“int”，可能丢失数据
+c:\users\liuxilai2012\selfadaptivecounters2018\sac_project\sac_project\exp.h(224): warning C4244: “参数”: 从“double”转换到“int”，可能丢失数据
+c:\users\liuxilai2012\selfadaptivecounters2018\sac_project\sac_project\exp.h(256): warning C4018: “<”: 有符号/无符号不匹配
+c:\users\liuxilai2012\selfadaptivecounters2018\sac_project\sac_project\exp.h(240): warning C4474: sprintf: 格式字符串中传递的参数太多
+  c:\users\liuxilai2012\selfadaptivecounters2018\sac_project\sac_project\exp.h(240): note: 占位符和其参数预计 0 可变参数，但提供的却是 1 参数
+c:\users\liuxilai2012\selfadaptivecounters2018\sac_project\sac_project\exp.h(240): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.16299.0\ucrt\stdio.h(1772): note: 参见“sprintf”的声明
+c:\users\liuxilai2012\selfadaptivecounters2018\sac_project\sac_project\exp.h(323): warning C4244: “参数”: 从“double”转换到“int”，可能丢失数据
+c:\users\liuxilai2012\selfadaptivecounters2018\sac_project\sac_project\exp.h(330): warning C4244: “参数”: 从“double”转换到“int”，可能丢失数据
+c:\users\liuxilai2012\selfadaptivecounters2018\sac_project\sac_project\exp.h(336): warning C4244: “参数”: 从“double”转换到“int”，可能丢失数据
+c:\users\liuxilai2012\selfadaptivecounters2018\sac_project\sac_project\exp.h(342): warning C4244: “参数”: 从“double”转换到“int”，可能丢失数据
+c:\users\liuxilai2012\selfadaptivecounters2018\sac_project\sac_project\exp.h(348): warning C4244: “参数”: 从“double”转换到“int”，可能丢失数据
+c:\users\liuxilai2012\selfadaptivecounters2018\sac_project\sac_project\exp.h(354): warning C4244: “参数”: 从“double”转换到“int”，可能丢失数据
+c:\users\liuxilai2012\selfadaptivecounters2018\sac_project\sac_project\exp.h(386): warning C4018: “<”: 有符号/无符号不匹配
+c:\users\liuxilai2012\selfadaptivecounters2018\sac_project\sac_project\exp.h(370): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.16299.0\ucrt\stdio.h(1772): note: 参见“sprintf”的声明
+c:\users\liuxilai2012\selfadaptivecounters2018\sac_project\sac_project\main.cpp(54): warning C4244: “初始化”: 从“double”转换到“int”，可能丢失数据
+c:\users\liuxilai2012\selfadaptivecounters2018\sac_project\sac_project\main.cpp(54): warning C4244: “+=”: 从“double”转换到“int”，可能丢失数据
+c:\users\liuxilai2012\selfadaptivecounters2018\sac_project\sac_project\main.cpp(55): warning C4244: “参数”: 从“double”转换到“int”，可能丢失数据
+c:\users\liuxilai2012\selfadaptivecounters2018\sac_project\sac_project\main.cpp(86): warning C4244: “初始化”: 从“double”转换到“int”，可能丢失数据
+c:\users\liuxilai2012\selfadaptivecounters2018\sac_project\sac_project\main.cpp(86): warning C4244: “+=”: 从“double”转换到“int”，可能丢失数据
+c:\users\liuxilai2012\selfadaptivecounters2018\sac_project\sac_project\main.cpp(121): warning C4244: “参数”: 从“double”转换到“int”，可能丢失数据
+  SAC_project.vcxproj -> C:\Users\liuxilai2012\SelfAdaptiveCounters2018\SAC_project\Debug\SAC_project.exe

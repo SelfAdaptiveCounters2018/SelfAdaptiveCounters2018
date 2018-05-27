@@ -17,7 +17,10 @@ The folder named data contains some datasets we used in our experiments. These d
 
 ### Requirements
 
-
+```
+Microsoft Visual Studio 2017 
+Windows SDK version: 10.0.16299.0
+```
 
 ### How to build
 
